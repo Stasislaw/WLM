@@ -33,7 +33,9 @@ $sqlUsers = "CREATE TABLE IF NOT EXISTS users (
     role ENUM('creator', 'doer') DEFAULT 'doer',
     avg_score INT DEFAULT 0,
     total_score INT DEFAULT 0,
-    klasa VARCHAR(3) NOT NULL
+    klasa VARCHAR(3) NOT NULL,
+    remember_token VARCHAR(255) DEFAULT NULL,
+    expires_at DATETIME DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 $pdo->exec($sqlUsers);
 

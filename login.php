@@ -29,6 +29,21 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 $_SESSION['user_id'] = $user['user_id'];
                 $_SESSION['username'] = $user['username'];
                 $_SESSION['role'] = $user['role'];
+
+                //Add a remember-me token
+                if (isset($_POST['remember'])) {
+                    $rememberToken = bin2hex(random_bytes(64));
+                
+                    // Update the user's remember_token in the database
+                    $stmt = $pdo->prepare("UPDATE users SET remember_token = ? WHERE user_id = ?");
+                    $stmt->execute([$rememberToken, $user['user_id']]);
+                
+                    // Set a cookie
+                    $cookieValue = $user['user_id'] . '|' . $rememberToken;
+                    setcookie('remember_me', $cookieValue, time() + (86400 * 60), "/"); // Expires in 60 days
+                }
+
+                //proceed to page
                 header('Location: index.php');
                 exit();
             } else {

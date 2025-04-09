@@ -1,6 +1,9 @@
 <!--index.php-->
 <?php
+require_once('auth.php');
 session_start();
+checkRememberMeCookie($pdo);
+
 if(!isset($_SESSION['user_id'])){
     header('Location: loginForm.php');
 }
@@ -14,5 +17,6 @@ if(!isset($_SESSION['user_id'])){
 </head>
 <body>
     aha
+    <a href='./logout.php'>Wyloguj</a>
 </body>
 </html>

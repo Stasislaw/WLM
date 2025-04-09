@@ -1,6 +1,12 @@
 <!--loginForm.php-->
 <?php
+require_once('auth.php');
 session_start();
+checkRememberMeCookie($pdo);
+
+if (isset($_SESSION['user_id'])){
+    header('Location: index.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +23,8 @@ session_start();
         <input type='text' name="username" required>
         <label for="password">Hasło: </label>
         <input type="password" name="password" required>
+        <label for="remember">Zapamiętaj mnie: </label>
+        <input type="checkbox" name="remember">
         <input type="submit" value='Zaloguj się'>
     </form>
     <?php
