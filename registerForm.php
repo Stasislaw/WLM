@@ -21,6 +21,8 @@ if (isset($_SESSION['user_id'])) {
         <input type='text' name='username'  required>
         <label for='password'>Hasło: </label>
         <input type='password' name='password' required>
+        <label for='klasa'>Hasło: </label>
+        <input type='text' name='klasa' required>
         <input type='submit' value='Dodaj użytkownika'>
     </form>
 

@@ -1,4 +1,10 @@
 <!--index.php-->
+<?php
+session_start();
+if(!isset($_SESSION['user_id'])){
+    header('Location: loginForm.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,11 +13,6 @@
     <title>WLM</title>
 </head>
 <body>
-    <?php
-        if(!isset($_POST['user_id'])){
-            header('Location: loginForm.php');
-        }
-    ?>
     aha
 </body>
 </html>

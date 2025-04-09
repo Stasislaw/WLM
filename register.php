@@ -8,9 +8,10 @@ if (isset($_SESSION['user_id'])) {
     exit();
 }
 
-if (isset($_POST['username']) && isset($_POST['password'])) {
+if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['klasa'])) {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
+    $klasa = trim($_POST['klasa']);
 
     //Check if username is correct:
         if (strlen($username) < 3) {
@@ -41,6 +42,12 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
             exit();
         }
 
+        if(strlen($klasa) > 3) {
+            $_SESSION['error'] = "Symbol klasy nie może być dłuższy niż 3 znaki";
+            header('Location: registerForm.php');
+            exit();
+        }
+
     //If everything is okay, proceed to adding a user
     try {
         // Check if username already exists
@@ -56,8 +63,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the new user (role defaults to 'doer')
-        $stmt = $pdo->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-        $stmt->execute([$username, $hashed_password]);
+        $stmt = $pdo->prepare("INSERT INTO users (username, password, klasa) VALUES (?, ?, ?)");
+        $stmt->execute([$username, $hashed_password, $klasa]);
 
         // Redirect to login with success message
         $_SESSION['success'] = "Konto zostało utworzone. Możesz się teraz zalogować.";
