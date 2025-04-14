@@ -37,6 +37,11 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                     // Update the user's remember_token in the database
                     $stmt = $pdo->prepare("UPDATE users SET remember_token = ? WHERE user_id = ?");
                     $stmt->execute([$rememberToken, $user['user_id']]);
+
+                    $date = date('Y-m-d H:i:s');
+                    // Set an expiration date for token
+                    $stmt = $pdo->prepare("UPDATE users SET expires_at = ? WHERE user_id = ?");
+                    $stmt->execute([$date, $user['user_id']]);
                 
                     // Set a cookie
                     $cookieValue = $user['user_id'] . '|' . $rememberToken;
