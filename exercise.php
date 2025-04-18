@@ -45,7 +45,7 @@
     }
     
     ?></p>
-    <p><b>Poziom trudności: </b><?php
+    <p><b>Poziom trudności: <?php
     switch($exercise['difficulty']){
         case 'hard':
             $color = 'red';
@@ -59,8 +59,9 @@
             $color = 'darkgreen';
             break;
     }
-    echo('<span color="'.$color.'">'.$exercise['difficulty'].'</span>');
+    echo('<span style="text-transform: uppercase; color: '.$color.';">'.$exercise['difficulty'].'</span>');
     ?>
+    </b></p>
     <p><b>Maksymalna liczba punktów:</b> <?= (int)$exercise['max_points'] ?></p>
     <p><?php
     if($exercise['avg_points'] == null){
@@ -72,6 +73,22 @@
     ?></p>
     <hr>
     <?= $exercise['description'] ?>
+    <br><br>
+    <?php
+    $query = "
+    SELECT * FROM exercise_files WHERE exercise_id = ?
+    ";
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$id]);
+    $exercise_files = $stmt->fetch(PDO::FETCH_ASSOC);
+    if($exercise_files){
+        foreach ($exercise_files as $exf){
+            echo('<a href="'.$exf['file_path'].'">'.$exf['file_name'].'</a><br>');
+        }
+    }else{
+        echo('<u>Brak załączników</u>');
+    }
+    ?>
     <hr>
 
     <?php if($_SESSION['role'] == 'doer'){  ?>
@@ -102,14 +119,15 @@
     </h2>
     <br>
     <?= $submission !== false ? htmlspecialchars($submission['answer']) : '' ?>
+
+    <!-- Formularz do przesyłania zgłoszeń -->
+
     <?php
     }
     else if($_SESSION['role'] == 'creator'){
     
-    
-    
-    
-    
+    //Wyświetlanie i ocenianie zgłoszeń
+
     }
     ?>
 </body>
