@@ -16,7 +16,7 @@ if(!isset($_SESSION['user_id'])){
     <title>WLM</title>
 </head>
 <body>
-    aha
+    <a href='./newEx.php'>Nowe zadania</a>
     <a href='./logout.php'>Wyloguj</a>
 </body>
 </html>
