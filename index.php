@@ -16,7 +16,10 @@ if(!isset($_SESSION['user_id'])){
     <title>WLM</title>
 </head>
 <body>
-    <a href='./newEx.php'>Nowe zadania</a>
+    <a href='./newEx.php'><?= $_SESSION['role'] == 'doer' ? 'Nowe zadania' : 'Zadania do sprawdzenia'?></a>
+    <?php if($_SESSION['role'] == 'doer'){ ?>
+        <br><a href='./pendEx.php'>Oczekujące na sprawdzenie</a>
+    <?php } ?>
     <a href='./logout.php'>Wyloguj</a>
 </body>
 </html>

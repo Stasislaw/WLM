@@ -13,33 +13,17 @@
             header('Location: index.php');
         }
 
-        if($_SESSION['role'] == 'creator'){
         $query = "
         SELECT
             e.*,
             ( SELECT COUNT(*)
                 FROM exercise_files f
             WHERE f.exercise_id = e.exercise_id
-            ) AS file_count
+            ) AS file_count,
+             s.*
         FROM exercises e
+        JOIN submissions s ON e.exercise_id = s.exercise_id
         WHERE EXISTS (
-            SELECT 1
-            FROM submissions s
-            WHERE s.exercise_id = e.exercise_id
-            AND s.status = 'pending' 
-        )
-        ORDER BY e.created_at DESC
-        ";
-        }else{
-        $query = "
-        SELECT
-            e.*,
-            ( SELECT COUNT(*)
-                FROM exercise_files f
-            WHERE f.exercise_id = e.exercise_id
-            ) AS file_count
-        FROM exercises e
-        WHERE NOT EXISTS (
             SELECT 1
             FROM submissions s
             WHERE s.exercise_id = e.exercise_id
@@ -47,7 +31,7 @@
         )
         ORDER BY e.created_at DESC
         ";
-        }
+        
 
         $stmt = $pdo->prepare($query);
         $_SESSION['role'] == 'doer' ? 
@@ -69,13 +53,14 @@
                 echo('<h2>'.$ex['title'].'</h2>');
                 echo('<h3>'.$ex['max_points'].' pkt. | '.$ex['difficulty'].'</h3>');
 
-                if (mb_strlen($ex['description']) > 200) {
-                    $teaser = mb_substr($ex['description'], 0, 200  ) . '…';
+                if (mb_strlen($ex['description']) > 100) {
+                    $teaser = mb_substr($ex['description'], 0, 100  ) . '…';
                 } else {
                     $teaser = $ex['description'];
                 }
 
-                echo('<p>'.$teaser.'</p>');
+                echo('<p>'.$teaser.'</p><hr>');
+                echo('<p>'.$ex['answer'].'</p><br>');
                 echo('Dołączonych plików: '.$ex['file_count']);
                 echo('</div>');
             }  

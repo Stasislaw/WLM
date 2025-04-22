@@ -80,7 +80,7 @@
     ";
     $stmt = $pdo->prepare($query);
     $stmt->execute([$id]);
-    $exercise_files = $stmt->fetch(PDO::FETCH_ASSOC);
+    $exercise_files = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if($exercise_files){
         foreach ($exercise_files as $exf){
             echo('<a href="'.$exf['file_path'].'">'.$exf['file_name'].'</a><br>');
@@ -118,9 +118,35 @@
     ?>
     </h2>
     <br>
-    <?= $submission !== false ? htmlspecialchars($submission['answer']) : '' ?>
+    <?php
+    echo($submission !== false ? htmlspecialchars($submission['answer']) : '');
 
-    <!-- Formularz do przesyłania zgłoszeń -->
+    if(!$submission){
+        ?>
+
+            <hr>
+            <form action='./submitAnswer.php?id=<?=$id?>' method="post">
+                <label for='submission'>Twoja odpowiedz: <br></label>
+            <textarea id='submission' name="submission" style="width: 500px; height: 300px;" maxlength="20000"></textarea>
+            <br><input type="submit" value="Prześlij">
+            </form>
+
+            <?php
+    }else{
+        if($submission['status'] == 'pending' || $submission['status'] == 'rejected'){
+            ?>
+
+            <hr>
+            <form action='./submitAnswer.php?id=<?=$id?>' method="post">
+                <label for='submission'>Twoja odpowiedz: <br></label>
+            <textarea id='submission' name="submission" style="width: 500px; height: 300px;" maxlength="20000"></textarea>
+            <br><input type="submit" value="Prześlij">
+            </form>
+
+            <?php
+        }
+    }
+    ?>
 
     <?php
     }
