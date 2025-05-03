@@ -15,34 +15,26 @@ if (mb_strlen($answer, 'UTF-8') > 20000) {
     exit;
 }
 
-$query="
-    SELECT submission_id
-    FROM submissions
-    WHERE exercise_id = ?
-    AND submitter_id = ?
+$update = "
+  UPDATE submissions
+     SET answer         = ?,
+         status         = 'pending',
+         review         = NULL,
+         points_awarded = NULL,
+         submitted_at   = CURRENT_TIMESTAMP
+   WHERE exercise_id   = ?
+     AND submitter_id  = ?
 ";
-$stmt = $pdo->prepare($query);
-$stmt->execute([$ex_id, $us_id]);
-$existingId = $stmt->fetchColumn();
+$stmt = $pdo->prepare($update);
+$stmt->execute([$answer, $ex_id, $us_id]);
 
-
-if($existingId){
-    $query="
-    UPDATE submissions
-    SET answer         = ?,
-        status         = 'pending',
-        review         = NULL,
-        points_awarded = NULL,
-        submitted_at   = CURRENT_TIMESTAMP
-    WHERE submission_id = ?
+if ($stmt->rowCount() === 0) {
+    // no rows updated → really insert a new one
+    $insert = "
+      INSERT INTO submissions (exercise_id, submitter_id, answer)
+      VALUES (?, ?, ?)
     ";
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$answer, $existingId]);
-}else{
-    $query="
-        INSERT INTO submissions (exercise_id, submitter_id, answer) VALUES (?, ?, ?)
-    ";
-    $stmt = $pdo->prepare($query);
+    $stmt = $pdo->prepare($insert);
     $stmt->execute([$ex_id, $us_id, $answer]);
 }
 

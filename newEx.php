@@ -77,7 +77,7 @@
 
                 echo('<p>'.$teaser.'</p>');
                 echo('Dołączonych plików: '.$ex['file_count']);
-                echo('</div>');
+                echo('</a>');
             }  
         }
     ?>

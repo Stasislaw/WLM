@@ -65,13 +65,22 @@ $sqlSubmissions = "CREATE TABLE IF NOT EXISTS submissions (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 $pdo->exec($sqlSubmissions);
 
-$sqlFiles = "CREATE TABLE IF NOT EXISTS exercise_files (
+$sqlExFiles = "CREATE TABLE IF NOT EXISTS exercise_files (
     file_id INT AUTO_INCREMENT PRIMARY KEY,
     exercise_id INT NOT NULL,
     file_name VARCHAR(255) NOT NULL,
     file_path VARCHAR(255) NOT NULL,
     FOREIGN KEY (exercise_id) REFERENCES exercises(exercise_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
-$pdo->exec($sqlFiles);
+$pdo->exec($sqlExFiles);
+
+$sqlSubFiles = "CREATE TABLE IF NOT EXISTS submission_files (
+    file_id INT AUTO_INCREMENT PRIMARY KEY,
+    submission_id INT NOT NULL,
+    file_name VARCHAR(255) NOT NULL,
+    file_path VARCHAR(255) NOT NULL,
+    FOREIGN KEY (submission_id) REFERENCES submissions(submission_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+$pdo->exec($sqlSubFiles);
 
 ?>

@@ -45,7 +45,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
                 
                     // Set a cookie
                     $cookieValue = $user['user_id'] . '|' . $rememberToken;
-                    setcookie('remember_me', $cookieValue, time() + (86400 * 60), "/"); // Expires in 60 days
+                    setcookie('remember_me', $cookieValue, time() + (86400 * 60), "/", secure: true, httponly: true); // Expires in 60 days
                 }
 
                 //proceed to page

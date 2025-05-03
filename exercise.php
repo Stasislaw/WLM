@@ -128,6 +128,7 @@
             <form action='./submitAnswer.php?id=<?=$id?>' method="post">
                 <label for='submission'>Twoja odpowiedz: <br></label>
             <textarea id='submission' name="submission" style="width: 500px; height: 300px;" maxlength="20000"></textarea>
+            <br><input id='subFiles' name='subFiles' type="file" multiple>
             <br><input type="submit" value="Prześlij">
             </form>
 
@@ -140,6 +141,23 @@
             <form action='./submitAnswer.php?id=<?=$id?>' method="post">
                 <label for='submission'>Twoja odpowiedz: <br></label>
             <textarea id='submission' name="submission" style="width: 500px; height: 300px;" maxlength="20000"></textarea>
+            <br>
+            <?php
+            $query = "
+            SELECT * FROM submission_files WHERE submission_id = ?
+            ";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$id]);
+            $submission_files = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            if($submission_files){
+                foreach ($submission_files as $sbf){
+                    echo('<a href="'.$sbf['file_path'].'">'.$sbf['file_name'].'</a><br>');
+                }
+            }else{
+                echo('<u>Brak załączników</u>');
+            }
+            ?>
+            <br><input id='subFiles' name='subFiles' type="file" multiple>
             <br><input type="submit" value="Prześlij">
             </form>
 

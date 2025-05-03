@@ -62,7 +62,7 @@
                 echo('<p>'.$teaser.'</p><hr>');
                 echo('<p>'.$ex['answer'].'</p><br>');
                 echo('Dołączonych plików: '.$ex['file_count']);
-                echo('</div>');
+                echo('</a>');
             }  
         }
     ?>
