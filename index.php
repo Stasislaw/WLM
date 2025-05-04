@@ -1,11 +1,12 @@
 <!--index.php-->
 <?php
 require_once('auth.php');
+require_once('header.php');
 session_start();
 checkRememberMeCookie($pdo);
 
 if(!isset($_SESSION['user_id'])){
-    header('Location: loginForm.php');
+    header('Location: news.php');
 }
 ?>
 <!DOCTYPE html>
@@ -14,6 +15,7 @@ if(!isset($_SESSION['user_id'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WLM</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <a href='./newEx.php'><?= $_SESSION['role'] == 'doer' ? 'Nowe zadania' : 'Zadania do sprawdzenia'?></a>
