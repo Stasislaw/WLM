@@ -12,6 +12,12 @@ function checkRememberMeCookie($pdo) {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user) {
+            // Debugowanie przed ustawieniem sesji z remember_me
+            echo "Debug remember_me przed ustawieniem sesji:<br>";
+            echo "user_id: " . $user['user_id'] . "<br>";
+            echo "username: " . $user['username'] . "<br>";
+            echo "role: " . $user['role'] . "<br>";
+            
             $_SESSION['user_id'] = $user['user_id'];
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];

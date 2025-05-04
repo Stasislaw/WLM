@@ -1,6 +1,8 @@
-<!--loginForm.php-->
+
+<!-- File: loginForm.php -->
 <?php
 require_once('auth.php');
+require_once('header.php');
 session_start();
 checkRememberMeCookie($pdo);
 
@@ -8,36 +10,44 @@ if (isset($_SESSION['user_id'])){
     header('Location: index.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zaloguj się</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zaloguj się</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h2> Zaloguj się </h2>
-    <form action='./login.php' method='post'>
-        <label for="username">Nazwa użytkownika: </label>
-        <input type='text' name="username" required>
-        <label for="password">Hasło: </label>
-        <input type="password" name="password" required>
-        <label for="remember">Zapamiętaj mnie: </label>
-        <input type="checkbox" name="remember">
-        <input type="submit" value='Zaloguj się'>
+  <div class="login-container">
+    <form action="./login.php" method="post">
+      <h2>Zaloguj się</h2>
+      <label for="username">Nazwa użytkownika:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Hasło:</label>
+      <input type="password" id="password" name="password" required>
+
+      <div class="remember-row">
+        <input type="checkbox" id="remember" name="remember">
+        <label for="remember">Zapamiętaj mnie</label>
+      </div>
+
+      <button type="submit">Zaloguj</button>
+      <p class="register-link"><a href="./registerForm.php">Utwórz konto</a></p>
     </form>
+
     <?php
-    // Display error message if it exists
     if (isset($_SESSION['error'])) {
-        echo "<p style='color:red;'>" . htmlspecialchars($_SESSION['error']) . "</p>";
-        unset($_SESSION['error']); // Clear the error after displaying
+        echo "<p class='error'>" . htmlspecialchars($_SESSION['error']) . "</p>";
+        unset($_SESSION['error']);
     }
     if (isset($_SESSION['success'])){
-        echo "<p style='color:green;'>" . htmlspecialchars($_SESSION['success']) . "</p>";
-        unset($_SESSION['success']); // Clear the success message after displaying
+        echo "<p class='success'>" . htmlspecialchars($_SESSION['success']) . "</p>";
+        unset($_SESSION['success']);
     }
     ?>
-    <a href='./registerForm.php'>Utwórz konto</a>
+  </div>
+
 </body>
 </html>

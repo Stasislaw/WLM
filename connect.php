@@ -30,7 +30,7 @@ $sqlUsers = "CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('creator', 'doer') DEFAULT 'doer',
+    role ENUM('creator', 'doer', 'admin') DEFAULT 'doer',
     avg_score INT DEFAULT 0,
     total_score INT DEFAULT 0,
     klasa VARCHAR(3) NOT NULL,
@@ -47,9 +47,17 @@ $sqlExercises = "CREATE TABLE IF NOT EXISTS exercises (
     difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'medium',
     max_points INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    due_date DATETIME NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 $pdo->exec($sqlExercises);
+
+// Ensure the due_date column exists for legacy tables
+try {
+    $pdo->exec("ALTER TABLE exercises ADD COLUMN IF NOT EXISTS due_date DATETIME NOT NULL AFTER created_at");
+} catch (PDOException $e) {
+    // ignore if column already exists or fails
+}
 
 $sqlSubmissions = "CREATE TABLE IF NOT EXISTS submissions (
     submission_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -82,5 +90,15 @@ $sqlSubFiles = "CREATE TABLE IF NOT EXISTS submission_files (
     FOREIGN KEY (submission_id) REFERENCES submissions(submission_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 $pdo->exec($sqlSubFiles);
+
+$sqlNews = "CREATE TABLE IF NOT EXISTS news (
+    news_id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+$pdo->exec($sqlNews);
 
 ?>

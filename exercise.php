@@ -82,11 +82,13 @@
     $stmt->execute([$id]);
     $exercise_files = $stmt->fetchAll(PDO::FETCH_ASSOC);
     if($exercise_files){
+        echo '<div class="attachments">';
         foreach ($exercise_files as $exf){
-            echo('<a href="'.$exf['file_path'].'">'.$exf['file_name'].'</a><br>');
+            echo '<a href="'.htmlspecialchars($exf['file_path']).'" class="attachment-btn" target="_blank">'.htmlspecialchars($exf['file_name']).'</a>';
         }
-    }else{
-        echo('<u>Brak załączników</u>');
+        echo '</div>';
+    } else {
+        echo '<p>Brak załączników</p>';
     }
     ?>
     <hr>
@@ -150,11 +152,13 @@
             $stmt->execute([$id]);
             $submission_files = $stmt->fetchAll(PDO::FETCH_ASSOC);
             if($submission_files){
+                echo '<div class="attachments">';
                 foreach ($submission_files as $sbf){
-                    echo('<a href="'.$sbf['file_path'].'">'.$sbf['file_name'].'</a><br>');
+                    echo '<a href="'.htmlspecialchars($sbf['file_path']).'" class="attachment-btn" target="_blank">'.htmlspecialchars($sbf['file_name']).'</a>';
                 }
-            }else{
-                echo('<u>Brak załączników</u>');
+                echo '</div>';
+            } else {
+                echo '<p>Brak załączników</p>';
             }
             ?>
             <br><input id='subFiles' name='subFiles' type="file" multiple>
