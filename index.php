@@ -1,7 +1,6 @@
 <!--index.php-->
 <?php
 require_once('auth.php');
-require_once('header.php');
 session_start();
 checkRememberMeCookie($pdo);
 
@@ -18,10 +17,23 @@ if(!isset($_SESSION['user_id'])){
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<header>
+    <div class="container header-inner">
+      <h1>Liga Matematyczna</h1>
+      <nav>
+        <ul>
+          <li><a href="news.php">Aktualności</a></li>
+          <li><a href="problems.php">Zadania</a></li>
+          <li><a href="ranking.php">Ranking</a></li>
+          <li><a href="about.php">O nas</a></li>
+          <li><a href="./logout.php" class="btn-login">Wyloguj</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
     <a href='./newEx.php'><?= $_SESSION['role'] == 'doer' ? 'Nowe zadania' : 'Zadania do sprawdzenia'?></a>
     <?php if($_SESSION['role'] == 'doer'){ ?>
         <br><a href='./pendEx.php'>Oczekujące na sprawdzenie</a>
     <?php } ?>
-    <a href='./logout.php'>Wyloguj</a>
 </body>
 </html>

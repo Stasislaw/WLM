@@ -29,11 +29,11 @@ require_once('header.php');
         </section>
     </main>
 
-    <footer>
+    <!-- <footer>
         <div class="container">
             <p>&copy; 2025 Ligia Matematyczna</p>
         </div>
-    </footer>
+    </footer> -->
 </body>
 
 </html>

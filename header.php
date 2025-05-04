@@ -1,6 +1,6 @@
 <header>
     <div class="container header-inner">
-      <h1>Liga Matematyczna</h1>
+      <h1>Summer Online Math League</h1>
       <nav>
         <ul>
           <li><a href="news.php">Aktualności</a></li>

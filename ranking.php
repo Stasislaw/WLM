@@ -39,12 +39,6 @@ require_once('header.php');
             </table>
         </section>
     </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Ligia Matematyczna</p>
-        </div>
-    </footer>
 </body>
 
 </html>
