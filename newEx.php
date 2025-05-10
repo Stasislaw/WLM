@@ -10,10 +10,10 @@
         require_once('connect.php');
         session_start();
         if(!isset($_SESSION['user_id'])){
-            header('Location: index.php');
+            header('Location: header.php');
         }
 
-        if($_SESSION['role'] == 'creator'){
+        if($_SESSION['role'] == 'creator' || $_SESSION['role'] == 'admin'){
         $query = "
         SELECT
             e.*,

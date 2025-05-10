@@ -9,9 +9,6 @@
     <?php
         require_once('connect.php');
         session_start();
-        if(!isset($_SESSION['user_id'])){
-            header('Location: index.php');
-        }
 
         $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
@@ -38,8 +35,12 @@
     ?>
     <h2><?= $exercise['title'] ?></h2>
     <p><b>Twórca: </b><?php
-    if($_SESSION['user_id'] == $exercise['creator_id']){
-        echo($exercise['creator_name'].' (Ty)');
+    if(isset($_SESSION['user_id'])){
+        if($_SESSION['user_id'] == $exercise['creator_id']){
+            echo($exercise['creator_name'].' (Ty)');
+        }else{
+            echo($exercise['creator_name']);
+        }
     }else{
         echo($exercise['creator_name']);
     }
@@ -91,7 +92,13 @@
     ?>
     <hr>
 
-    <?php if($_SESSION['role'] == 'doer'){  ?>
+    <?php
+    if(!isset($_SESSION['user_id'])){
+        echo('<h2>Zaloguj się aby dodać rozwiązanie</h2><br>
+        <a href="loginForm.php" class="btn-login">Zaloguj</a
+        ');
+    }
+    else if($_SESSION['role'] == 'doer'){  ?>
     <h2>Twoje rozwiązanie
     <?php
     $query = "

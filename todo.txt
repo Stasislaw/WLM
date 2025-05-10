@@ -1,0 +1,4 @@
+1.Dodać rozszeżony widok aktualności, na razie jest tylko 100 znaków na głównej
+2.Dodać dodawanie zadań
+3.Dodać sprawdzanie zadań
+4.Dodać wygląd
