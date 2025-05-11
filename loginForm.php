@@ -3,7 +3,6 @@
 <?php
 require_once('auth.php');
 require_once('header.php');
-session_start();
 checkRememberMeCookie($pdo);
 
 if (isset($_SESSION['user_id'])){

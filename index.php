@@ -27,6 +27,10 @@ if(!isset($_SESSION['user_id'])){
           <li><a href="ranking.php">Ranking</a></li>
           <li><a href="about.php">O nas</a></li>
           <li><a href="./logout.php" class="btn-login">Wyloguj</a></li>
+          <?= $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'creator' ? 
+          '<li><a href="addNews.php"> Dodaj news </a></li>
+           <li><a href="addExercise.php">Dodaj zadanie</a></li>'
+          : '' ?>
         </ul>
       </nav>
     </div>

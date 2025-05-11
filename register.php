@@ -12,6 +12,7 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['klas
     $username = trim($_POST['username']);
     $password = $_POST['password'];
     $klasa = trim($_POST['klasa']);
+    $admin = (bool)$_POST['is_admin'];
 
     //Check if username is correct:
         if (strlen($username) < 3) {
@@ -48,6 +49,12 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['klas
             exit();
         }
 
+        if($admin){
+            $role = 'admin';
+        }else{
+            $role = 'doer';
+        }
+
     //If everything is okay, proceed to adding a user
     try {
         // Check if username already exists
@@ -63,8 +70,8 @@ if (isset($_POST['username']) && isset($_POST['password']) && isset($_POST['klas
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert the new user (role defaults to 'doer')
-        $stmt = $pdo->prepare("INSERT INTO users (username, password, klasa) VALUES (?, ?, ?)");
-        $stmt->execute([$username, $hashed_password, $klasa]);
+        $stmt = $pdo->prepare("INSERT INTO users (username, password, klasa, role) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$username, $hashed_password, $klasa, $role]);
 
         // Redirect to login with success message
         $_SESSION['success'] = "Konto zostało utworzone. Możesz się teraz zalogować.";

@@ -1,7 +1,7 @@
 <!-- File: registerForm.php -->
 <?php
 require_once('header.php');
-session_start();
+require_once('connect.php');
 if (isset($_SESSION['user_id'])) {
     header('Location: index.php');
     exit();
@@ -28,6 +28,15 @@ if (isset($_SESSION['user_id'])) {
 
             <label for="klasa">Klasa:</label>
             <input type="text" id="klasa" name="klasa" required>
+
+            <?php
+            $query = "SELECT 1 FROM users WHERE role='admin'";
+            $stmt = $pdo->prepare($query);
+            $stmt->execute();
+            $adminExists = (bool) $stmt->fetchColumn();
+            ?>
+            <?= $adminExists ? '' : '<label for="is_admin">Utwórz admina?</label>' ?>
+            <input type="checkbox" id="is_admin" name="is_admin" <?= $adminExists ? 'hidden disabled' : '' ?>>
 
             <button type="submit">Utwórz konto</button>
             <p class="register-link"><a href="./loginForm.php">Zaloguj się</a></p>

@@ -1,6 +1,6 @@
 <!-- File: about.html -->
 <?php
-require_once('header.php'); 
+require_once('header.php');
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -16,8 +16,7 @@ require_once('header.php');
     <main class="container">
         <section class="about">
             <h2>O SOML</h2>
-            <p>Nasza społeczność skupia pasjonatów matematyki z całej Polski. Celem jest rozwijanie umiejętności i
-                rywalizacja na najwyższym poziomie.</p>
+            <p>aha</p>
         </section>
     </main>
 </body>

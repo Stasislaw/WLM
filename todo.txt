@@ -1,0 +1,5 @@
+2.Dodać dodawanie zadań
+3.Dodać sprawdzanie zadań
+5.Dodać obsługę plików do zgłaszania rozwiązań
+
+4.Dodać wygląd

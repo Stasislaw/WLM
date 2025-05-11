@@ -16,27 +16,7 @@ require_once('header.php');
     <main class="container">
         <section class="ranking">
             <h2>Ranking Uczestników</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nazwa</th>
-                        <th>Punkty</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Jan Kowalski</td>
-                        <td>150</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Anna Nowak</td>
-                        <td>140</td>
-                    </tr>
-                </tbody>
-            </table>
+            Do zrobienia
         </section>
     </main>
 </body>

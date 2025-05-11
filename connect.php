@@ -13,7 +13,7 @@ $pdo = new PDO($dsn, $user, $pass, [
 ]);
 
 //create database
-$dbName = 'my_database';
+$dbName = 'wim';
 $sql = "CREATE DATABASE IF NOT EXISTS `$dbName` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci";
 $pdo->exec($sql);
 
@@ -30,7 +30,7 @@ $sqlUsers = "CREATE TABLE IF NOT EXISTS users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role ENUM('creator', 'doer') DEFAULT 'doer',
+    role ENUM('creator', 'doer', 'admin') DEFAULT 'doer',
     avg_score INT DEFAULT 0,
     total_score INT DEFAULT 0,
     klasa VARCHAR(3) NOT NULL,
@@ -47,6 +47,7 @@ $sqlExercises = "CREATE TABLE IF NOT EXISTS exercises (
     difficulty ENUM('easy', 'medium', 'hard') DEFAULT 'medium',
     max_points INT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    due_to DATETIME NOT NULL,
     FOREIGN KEY (creator_id) REFERENCES users(user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 $pdo->exec($sqlExercises);
@@ -82,5 +83,15 @@ $sqlSubFiles = "CREATE TABLE IF NOT EXISTS submission_files (
     FOREIGN KEY (submission_id) REFERENCES submissions(submission_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
 $pdo->exec($sqlSubFiles);
+
+$sqlNews = "CREATE TABLE IF NOT EXISTS news (
+    news_id INT AUTO_INCREMENT PRIMARY KEY,
+    creator_id INT NOT NULL,
+    title VARCHAR(100) NOT NULL,
+    news TEXT NOT NULL,
+    submitted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (creator_id) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4";
+$pdo->exec($sqlNews);
 
 ?>

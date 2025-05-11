@@ -14,11 +14,9 @@ require_once('header.php');
 <body>
     <main class="container">
         <section class="problems">
-            <h2>Lista Zadań</h2>
             <ul>
-                <li><a href="pdfs/zadanie1.pdf" target="_blank">Zadanie 1 (PDF)</a></li>
-                <li><a href="pdfs/zadanie2.pdf" target="_blank">Zadanie 2 (PDF)</a></li>
-                <!-- Dodaj kolejne zadania -->
+                <li><a href='allEx.php'> Wszystkie zadania </a></li>
+                <li>Zaloguj się aby robić zadania</li>
             </ul>
         </section>
     </main>
