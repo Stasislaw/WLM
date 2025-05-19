@@ -4,40 +4,49 @@ require_once('auth.php');
 session_start();
 checkRememberMeCookie($pdo);
 
-if(!isset($_SESSION['user_id'])){
-    header('Location: news.php');
+if(isset($_SESSION['user_id'])){
+    header('Location: main.php');
 }
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WLM</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>SOML</title>
+    <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-<header>
-    <div class="container header-inner">
-      <h1>Liga Matematyczna</h1>
-      <nav>
-        <ul>
-          <li><a href="news.php">Aktualności</a></li>
-          <li><a href="problems.php">Zadania</a></li>
-          <li><a href="ranking.php">Ranking</a></li>
-          <li><a href="about.php">O nas</a></li>
-          <li><a href="./logout.php" class="btn-login">Wyloguj</a></li>
-          <?= $_SESSION['role'] == 'admin' || $_SESSION['role'] == 'creator' ? 
-          '<li><a href="addNews.php"> Dodaj news </a></li>
-           <li><a href="addExercise.php">Dodaj zadanie</a></li>'
-          : '' ?>
-        </ul>
-      </nav>
+    <div class="container">
+        <div class="headerContainer">
+            <header class="logoContainer">
+                <img src="./Assets/Images/logo.png" class="logo">
+            </header>
+            <header class="title">
+                <h1>Summer Online Maths League</h1>
+            </header>
+        </div>
+        <aside>
+            <a href="sus">adadada</a>
+            <a href="sus2">adadawd</a>
+            <a href="adawd">dawdad</a>
+            <a href="adawd">waddawfa</a>
+            <a href="dawd">j fafadw</a>
+        </aside>
+        <main>
+            adadadadadd
+        </main>
+        <footer>
+
+            <a href="https://discord.gg/RnaUUcfX"><img src="./Assets/Images/discord.png" width="3%" height="3%">&nbsp;Discord</a>
+            <a href="https://mail.google.com/mail/?view=cm&fs=1&to=twojamama@gmail.com"
+                    target="_blank"
+                    rel="noopener">
+            <img src="./Assets/Images/gmail.png" width="3%" height="3%">&nbsp;Mail</a>
+        </footer>
+        <footer>
+
+        </footer>
     </div>
-  </header>
-    <a href='./newEx.php'><?= $_SESSION['role'] == 'doer' ? 'Nowe zadania' : 'Zadania do sprawdzenia'?></a>
-    <?php if($_SESSION['role'] == 'doer'){ ?>
-        <br><a href='./pendEx.php'>Oczekujące na sprawdzenie</a>
-    <?php } ?>
 </body>
 </html>

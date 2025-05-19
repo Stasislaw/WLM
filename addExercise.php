@@ -15,7 +15,7 @@ if($_SESSION['role'] == 'doer'){
     <title>Dodaj zadanie</title>
 </head>
 <body>
-    <form action='newExercise.php' method="POST">
+    <form action='newExercise.php' method="POST" enctype="multipart/form-data">
         <label for='title'>Tytuł zadania: </label>
         <input type="text" name="title" id="title" required><br>
         <label for="description">Treść zadania:</label><br>
@@ -31,7 +31,7 @@ if($_SESSION['role'] == 'doer'){
         <label for="due_to">Termin wyłączenia zadania: </label>
         <input type="datetime-local" id="due_to" name="due_to" required><br>
         <label for='files'>Dołączone pliki:</label>
-        <input type='file' id="files" name="files" multiple><br>
+        <input type='file' id="files" name="files[]" multiple><br>
         <input type="submit" value="Dodaj">
     </form>
 </body>
